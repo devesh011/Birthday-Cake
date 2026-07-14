@@ -1,0 +1,778 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Poppins, sans-serif;
+}
+
+html,
+body {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  min-height: 100vh;
+
+  background: linear-gradient(135deg, #12001d, #250045, #000);
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+}
+
+/* ============================= */
+/* Responsive Design */
+/* ============================= */
+
+/* Large Tablets */
+@media (max-width: 992px) {
+  .title {
+    font-size: 42px;
+  }
+
+  .cake {
+    transform: scale(0.85);
+  }
+}
+
+/* Tablets */
+@media (max-width: 768px) {
+  #loginBox {
+    width: 90%;
+    padding: 30px;
+  }
+
+  #loginBox h1 {
+    font-size: 28px;
+  }
+
+  .title {
+    font-size: 34px;
+    text-align: center;
+    padding: 0 20px;
+  }
+
+  .birthdayMessage {
+    width: 90%;
+  }
+
+  .birthdayMessage h1 {
+    font-size: 46px;
+  }
+
+  .birthdayMessage p {
+    font-size: 22px;
+  }
+
+  .balloon {
+    width: 40px;
+    height: 55px;
+  }
+}
+
+/* Phones */
+@media (max-width: 576px) {
+  body {
+    padding: 15px;
+  }
+
+  #loginBox {
+    width: 100%;
+
+    max-width: 340px;
+
+    padding: 25px;
+
+    border-radius: 18px;
+  }
+
+  #loginBox h1 {
+    font-size: 24px;
+  }
+
+  #loginBox input {
+    padding: 12px;
+
+    font-size: 16px;
+  }
+
+  #loginBox button {
+    padding: 12px;
+
+    font-size: 16px;
+  }
+
+  .title {
+    font-size: 28px;
+
+    margin-bottom: 10px;
+
+    text-align: center;
+
+    padding: 0 15px;
+  }
+
+  .cake {
+    width: 100%;
+
+    max-width: 420px;
+
+    transform-origin: center;
+  }
+
+  .birthdayMessage {
+    width: 92%;
+
+    padding: 25px;
+
+    border-radius: 20px;
+  }
+
+  .birthdayMessage h1 {
+    font-size: 34px;
+  }
+
+  .birthdayMessage p {
+    font-size: 18px;
+  }
+
+  .balloon {
+    width: 28px;
+
+    height: 40px;
+  }
+}
+
+/* Very Small Phones */
+@media (max-width: 380px) {
+  .title {
+    font-size: 22px;
+  }
+
+  .birthdayMessage h1 {
+    font-size: 28px;
+  }
+
+  .birthdayMessage p {
+    font-size: 16px;
+  }
+}
+
+.container {
+  width: 100%;
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+}
+
+#loginBox {
+  width: 380px;
+
+  padding: 40px;
+
+  background: rgba(255, 255, 255, 0.1);
+
+  backdrop-filter: blur(25px);
+
+  border-radius: 20px;
+
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+
+  text-align: center;
+
+  color: white;
+
+  z-index: 5;
+}
+
+#loginBox h1 {
+  margin-bottom: 20px;
+
+  font-size: 32px;
+}
+
+#loginBox input {
+  width: 100%;
+
+  padding: 15px;
+
+  border: none;
+
+  outline: none;
+
+  border-radius: 10px;
+
+  margin-top: 20px;
+
+  font-size: 18px;
+}
+
+#loginBox button {
+  margin-top: 20px;
+
+  padding: 15px;
+
+  width: 100%;
+
+  background: #ff4da6;
+
+  color: white;
+
+  border: none;
+
+  border-radius: 10px;
+
+  font-size: 18px;
+
+  cursor: pointer;
+
+  transition: 0.3s;
+}
+
+button:hover {
+  transform: scale(1.05);
+
+  background: #ff0088;
+}
+
+#error {
+  margin-top: 15px;
+
+  color: #ff8d8d;
+}
+
+#birthdayPage {
+  display: none;
+
+  width: 100%;
+
+  min-height: 100vh;
+}
+
+#particles {
+  position: fixed;
+
+  width: 100%;
+
+  height: 100%;
+
+  overflow: hidden;
+
+  z-index: 0;
+}
+
+.circle {
+  position: absolute;
+
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.15);
+
+  animation: float linear infinite;
+}
+
+@keyframes float {
+  from {
+    transform: translateY(120vh);
+  }
+
+  to {
+    transform: translateY(-20vh);
+  }
+}
+
+.stars {
+  position: fixed;
+
+  width: 100%;
+
+  height: 100%;
+
+  background-image: radial-gradient(white 1px, transparent 1px);
+
+  background-size: 40px 40px;
+
+  animation: moveStars 60s linear infinite;
+
+  opacity: 0.6;
+}
+
+@keyframes moveStars {
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(500px);
+  }
+}
+
+/* Fixed full-screen layer that holds flying balloons.
+   Kept separate from body/.scene so balloons never
+   become flex items and never affect layout. */
+#balloonLayer {
+  position: fixed;
+
+  inset: 0;
+
+  overflow: hidden;
+
+  pointer-events: none;
+
+  z-index: 10;
+}
+
+.scene {
+  min-height: 100vh;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: flex-start;
+
+  gap: 25px;
+
+  position: relative;
+
+  z-index: 1;
+}
+.title {
+  color: white;
+  font-size: clamp(2rem, 8vw, 5rem);
+  margin-bottom: 40px;
+  text-shadow: 0 0 25px #ff66cc;
+  animation: glow 2s infinite alternate;
+  text-align: center;
+  line-height: 1.1;
+  padding: 0 20px;
+  position: relative;
+  z-index: 100;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.title-emoji {
+  font-size: 0.55em;
+  line-height: 1;
+}
+
+.title-text {
+  white-space: normal;
+  max-width: 90vw;
+}
+
+@keyframes glow {
+  from {
+    text-shadow: 0 0 15px #ff66cc;
+  }
+
+  to {
+    text-shadow: 0 0 45px gold;
+  }
+}
+
+.cake {
+  width: min(90vw, 420px);
+
+  height: 340px;
+
+  margin: 0 auto;
+
+  position: relative;
+
+  flex-shrink: 0;
+}
+@keyframes floatCake {
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+.bottom-layer {
+  position: absolute;
+
+  bottom: 0;
+
+  width: 100%;
+  height: 35%;
+
+  background: linear-gradient(#ff84b7, #ff4d94);
+
+  border-radius: 25px;
+
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.45);
+}
+
+.middle-layer {
+  position: absolute;
+
+  width: 83%;
+  height: 28%;
+
+  left: 8.5%;
+
+  bottom: 28%;
+  background: linear-gradient(#ffb3cf, #ff78a8);
+
+  border-radius: 20px;
+}
+
+.top-layer {
+  position: absolute;
+
+  width: 62%;
+  height: 24%;
+
+  left: 19%;
+
+  bottom: 56%;
+
+  background: linear-gradient(#ffd7ea, #ff9bc5);
+
+  border-radius: 18px;
+}
+
+.icing {
+  position: absolute;
+
+  top: 0;
+
+  width: 100%;
+
+  height: 25px;
+
+  background: white;
+
+  border-radius: 18px 18px 12px 12px;
+}
+
+.icing::before,
+.icing::after {
+  content: "";
+
+  position: absolute;
+
+  bottom: -12px;
+
+  width: 24px;
+
+  height: 20px;
+
+  background: white;
+
+  border-radius: 50%;
+}
+
+.icing::before {
+  left: 60px;
+}
+
+.icing::after {
+  right: 60px;
+}
+
+.candles {
+  position: absolute;
+
+  top: -58px;
+
+  width: 100%;
+
+  display: flex;
+
+  justify-content: space-evenly;
+}
+
+.candle {
+  width: 10px;
+
+  height: 58px;
+
+  background: repeating-linear-gradient(
+    45deg,
+    #ff66cc,
+    #ff66cc 5px,
+    white 5px,
+    white 10px
+  );
+
+  border-radius: 4px;
+
+  position: relative;
+}
+
+@keyframes flicker {
+  0% {
+    transform: translateX(-50%) scale(0.95) rotate(-3deg);
+  }
+
+  100% {
+    transform: translateX(-50%) scale(1.08) rotate(3deg);
+  }
+}
+
+.shadow {
+  position: absolute;
+
+  bottom: -18px;
+
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  width: 340px;
+
+  height: 28px;
+
+  background: rgba(0, 0, 0, 0.4);
+
+  filter: blur(18px);
+
+  border-radius: 50%;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+
+    transform: scale(0.8);
+  }
+
+  to {
+    opacity: 1;
+
+    transform: scale(1);
+  }
+}
+
+.flame {
+  position: absolute;
+
+  left: 50%;
+
+  top: -26px;
+
+  transform: translateX(-50%);
+
+  width: 16px;
+
+  height: 28px;
+
+  background: linear-gradient(to top, #ff4500, orange, yellow, white);
+
+  border-radius: 50% 50% 40% 40%;
+
+  box-shadow:
+    0 0 15px orange,
+    0 0 30px yellow,
+    0 0 45px gold,
+    0 0 60px rgba(255, 180, 0, 0.5);
+
+  animation: flicker 0.12s infinite;
+
+  transform-origin: center bottom;
+
+  transition: 0.4s;
+}
+
+.smoke {
+  position: fixed;
+
+  width: 12px;
+
+  height: 12px;
+
+  background: rgba(220, 220, 220, 0.7);
+
+  border-radius: 50%;
+
+  pointer-events: none;
+
+  z-index: 20;
+
+  animation: smoke 2.5s forwards;
+}
+
+@keyframes smoke {
+  0% {
+    opacity: 1;
+
+    transform: translateY(0) scale(0.4);
+  }
+
+  100% {
+    opacity: 0;
+
+    transform: translateY(-90px) translateX(20px) scale(3);
+  }
+}
+
+.flame.off {
+  opacity: 0;
+
+  transform: translateX(-50%) scale(0.1);
+}
+.birthdayMessage {
+  position: relative;
+
+  margin-top: 20px;
+
+  left: auto;
+
+  top: auto;
+
+  transform: none;
+
+  width: min(92%, 650px);
+}
+
+.birthdayMessage h1 {
+  font-size: clamp(2.2rem, 12vw, 5.5rem);
+
+  line-height: 1.1;
+
+  color: white;
+
+  text-align: center;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.msg-emoji {
+  font-size: 0.5em;
+  line-height: 1;
+}
+
+.msg-text {
+  max-width: 90vw;
+}
+.birthdayMessage p {
+  font-size: clamp(18px, 5vw, 32px);
+
+  line-height: 1.5;
+
+  text-align: center;
+
+  color: white;
+}
+
+@keyframes pop {
+  from {
+    opacity: 0;
+
+    transform: translate(-50%, -50%) scale(0.4);
+  }
+
+  to {
+    opacity: 1;
+
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@keyframes zoom {
+  from {
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+
+  to {
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+}
+
+.balloon {
+  position: absolute;
+
+  bottom: -120px;
+
+  width: 55px;
+
+  height: 70px;
+
+  border-radius: 50%;
+
+  animation: fly linear forwards;
+
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+}
+
+.balloon::after {
+  content: "";
+
+  position: absolute;
+
+  left: 50%;
+
+  top: 65px;
+
+  width: 2px;
+
+  height: 80px;
+
+  background: white;
+}
+
+@keyframes fly {
+  0% {
+    transform: translateY(0);
+  }
+
+  100% {
+    transform: translateY(-130vh);
+  }
+}
+
+.stars {
+  background-image:
+    radial-gradient(white 1px, transparent 1px),
+    radial-gradient(yellow 1px, transparent 1px);
+
+  background-size:
+    60px 60px,
+    120px 120px;
+
+  animation: starsMove 120s linear infinite;
+}
+
+@keyframes starsMove {
+  to {
+    background-position:
+      1000px 1000px,
+      -1000px 1000px;
+  }
+}
+
+@media (max-width: 600px) {
+  .scene {
+    justify-content: flex-start;
+
+    padding-top: 40px;
+  }
+
+  .cake {
+    transform: scale(0.58);
+
+    transform-origin: center;
+
+    margin-top: -30px;
+  }
+
+  .title {
+    margin-bottom: 15px;
+  }
+}
