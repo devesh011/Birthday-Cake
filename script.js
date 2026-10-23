@@ -1,4 +1,4 @@
-const PASSWORD = "Kuku1507";
+const PASSWORD = "Gatudii2410";
 let celebrationStarted = false;
 
 function checkPassword() {
